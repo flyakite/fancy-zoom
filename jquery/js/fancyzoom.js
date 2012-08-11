@@ -1,9 +1,9 @@
 (function($){
 $.fn.fancyzoom = function(options){
 
-    var options = options || {};
-    var directory = options && options.directory ? options.directory : 'images';
-    var zooming = false;
+    var options = options || {},
+        directory = options && options.directory ? options.directory : 'images',
+        zooming = false;
 
     if ($('#zoom').length == 0) {
         var ext = $.browser.msie ? 'gif' : 'png';
@@ -60,10 +60,12 @@ $.fn.fancyzoom = function(options){
 		var curTop = e.pageY;
 		var curLeft = e.pageX;
         
-        $('.garbage').remove()
-		zoom_close.attr('curTop', curTop);
-		zoom_close.attr('curLeft', curLeft);
-		zoom_close.attr('scaleImg', options.scaleImg ? 'true' : 'false');
+        $('.garbage').remove();
+		zoom_close
+	        .attr('curTop', curTop)
+		    .attr('curLeft', curLeft)
+		    .attr('scaleImg', options.scaleImg ? 'true' : 'false')
+		    .hide();
 
         $('#zoom').hide().css({
 			position : 'absolute',
@@ -73,7 +75,6 @@ $.fn.fancyzoom = function(options){
 			height : '1px'
 		});
 
-        zoom_close.hide();
 
         if (options.closeOnClick) {
             $('#zoom').click(hide);
