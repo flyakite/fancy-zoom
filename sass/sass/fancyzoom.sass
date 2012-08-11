@@ -17,9 +17,9 @@
   margin: 5px 0 0
   
 #zoom
-  background: white
+  background: transparent
   z-index: 3000
-  @include box-shadow(0 0 15px rgba(0,0,0,0.5))    
+  max-width: 1960px
   h2
     margin: 10px 0 10px
   p
@@ -31,6 +31,7 @@
     @include box-shadow(0 0 15px rgba(0,0,0,0.5))    
   img
     cursor: pointer
+    @include box-shadow(0 0 15px rgba(0,0,0,0.5))    
   //#zoom_close
   //  position: absolute
   //  top: -12px
