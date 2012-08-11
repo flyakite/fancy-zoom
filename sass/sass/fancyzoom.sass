@@ -1,0 +1,40 @@
+@import compass/reset
+@import compass/css3
+ 
+#photos
+  overflow: auto
+
+.photo
+  float: left
+  display: inline
+  margin: 0 20px 20px 0
+  a
+    img
+      border: 1px solid
+      padding: 1px
+
+#turtles_caption
+  margin: 5px 0 0
+  
+#zoom
+  background: white
+  z-index: 3000
+  @include box-shadow(0 0 15px rgba(0,0,0,0.5))    
+  h2
+    margin: 10px 0 10px
+  p
+    line-height: 1.6
+    background: white
+    color: #444
+    margin-top: 10px
+    padding: 10px
+    @include box-shadow(0 0 15px rgba(0,0,0,0.5))    
+  img
+    cursor: pointer
+  //#zoom_close
+  //  position: absolute
+  //  top: -12px
+  //  left: -12px
+   
+      
+  

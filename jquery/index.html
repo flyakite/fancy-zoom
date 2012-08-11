@@ -3,20 +3,58 @@
 <head> 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
 	<title>Fancy Zoom by John Nunemaker</title> 
-	<link rel="stylesheet" href="../css/common.css" type="text/css" /> 
+	<link rel="stylesheet" href="../css/fancyzoom.css" type="text/css" /> 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
-	<script type="text/javascript" src="js/fancyzoom.min.js"></script>
+	<script type="text/javascript" src="js/fancyzoom.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		$(document).ready(function() {
-			$('div.photo a').fancyZoom({scaleImg: true, closeOnClick: true});
-			$('#medium_box_link').fancyZoom({width:400, height:300});
-			$('#large_box_link').fancyZoom();
-			$('#flash_box_link').fancyZoom();
+			$('div.photo a').fancyzoom({scaleImg: true, closeOnClick: true});
+			$('#medium_box_link').fancyzoom({width:400, height:300});
+			$('#large_box_link').fancyzoom();
+			$('#flash_box_link').fancyzoom();
 		});
 	</script>
 	
 	<style type="text/css" media="screen">
-		#large_box {width:800; height:600;}
+	/*
+    Copyright (c) 2007, Yahoo! Inc. All rights reserved.
+    Code licensed under the BSD License:
+    http://developer.yahoo.net/yui/license.txt
+    version: 2.2.0
+    */
+    body {font:13px arial,helvetica,clean,sans-serif;*font-size:small;*font:x-small;}table {font-size:inherit;font:100%;}select, input, textarea {font:99% arial,helvetica,clean,sans-serif;}pre, code {font:115% monospace;*font-size:100%;}body * {line-height:1.22em;}
+    body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}/*ol,ul {list-style:none;}*/caption,th {text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym {border:0;}
+    /* end of yahoo reset and fonts */
+    
+    body                                          {color:#333; background:#4b1a1a; line-height:1.3;}
+    p                                                 {margin:0 0 20px;}
+    a                                                 {color:#4b1a1a;}
+    a:hover                                   {text-decoration:none;}
+    strong                                    {font-weight:bold;}
+    em                                            {font-style:italics;}
+    h1,h2,h3,h4,h5,h6                 {font-weight:bold;}
+    h1                                            {font-size:197%; margin:30px 0; color:#4b1a1a;}
+    h2                                            {font-size:174%; margin:20px 0; color:#b8111a;}
+    h3                                            {font-size:152%; margin:10px 0;}
+    h4                                            {font-size:129%; margin:10px 0;}
+    pre                                           {background:#eee; margin:0 0 20px; padding:20px; border:1px solid #ccc; font-size:100%; overflow:auto;}
+    code                                          {font-size:100%; margin:0; padding:0;}
+    ul, ol                                    {margin:10px 0 10px 25px;}
+    ol li                                         {margin:0 0 10px;}
+                            
+	#large_box {width:800; height:600;}
+    div#text a                {font-weight:bold;}
+    div#wrapper                             {background:#fff; width:560px; margin:0 auto; padding:20px; border:10px solid #bc8c46; border-width:0 10px;}
+    div#header                              {position:relative; border-bottom:1px dotted; margin:0 0 10px; padding:0 0 10px;}
+    div#header p                            {margin:0; padding:0;}
+    div#header h1                           {margin:0; padding:0;}
+    ul#nav                                      {position:absolute; top:0; right:0; list-style:none; margin:0; padding:0;}
+    ul#nav li                                   {display:inline; padding:0 0 0 5px;}
+    ul#nav li a                             {}
+    div#content                             {}
+    div#content p             {line-height:1.6;}
+    div#footer                              {clear:both; margin:40px 0 0; border-top:1px dotted; padding:10px 0 0;}
+
 	</style>
 </head> 
 <body> 
@@ -55,15 +93,10 @@
 				</a>
 			</div>
 
-			<div id="github">
-				<img src="http://farm4.static.flickr.com/3250/2765022017_356efe6a25.jpg" alt="helmet" />
-			</div>
-			<div id="hotdog">
-				<img src="http://farm4.static.flickr.com/3150/2726282580_05ed83e3c0.jpg" alt="Hot dog" />
-			</div>
-			<div id="turtles">
-				<img src="http://farm4.static.flickr.com/3088/2709825025_fb6d71b455.jpg" alt="Turtles" />
-				<p id="turtles_caption">It's true, they do bite!</p>
+			<div style="">
+				<img id="github" src="http://farm4.static.flickr.com/3250/2765022017_356efe6a25.jpg" alt="helmet" />
+				<img id="hotdog" src="http://farm4.static.flickr.com/3150/2726282580_05ed83e3c0.jpg" alt="Hot dog" />
+				<img id="turtles" src="http://farm4.static.flickr.com/3088/2709825025_fb6d71b455.jpg" alt="Turtles" />
 			</div>
 		</div>
 		
@@ -98,25 +131,25 @@
 &lt;script type="text/javascript" src="js/fancyzoom.js"&gt;&lt;/script&gt;</code></pre>
 		
 		<h2>Notes</h2>
-		<p>$('#id').fancyZoom() where id is the id of the &lt;a&gt; tag you would like to zoom. The &lt;a&gt; tag should have an  href that anchors to the id of the box that contains the contents that should be zoomed. For example:</p>
+		<p>$('#id').fancyzoom() where id is the id of the &lt;a&gt; tag you would like to zoom. The &lt;a&gt; tag should have an  href that anchors to the id of the box that contains the contents that should be zoomed. For example:</p>
 
 			<pre><code>&lt;a href="#small_box" id="small"&gt;Small Box!&lt;/a&gt;
 &lt;div id="small_box"&gt;
   &lt;p&gt;Here is the contents that will appear in the zoom.&lt;/p&gt;
 &lt;/div&gt;
 &lt;script type="text/javascript"&gt;
-	$('#small').fancyZoom();
+	$('#small').fancyzoom();
 &lt;/script&gt;
 
 // other examples
 &lt;script type="text/javascript"&gt; 
   $(document).ready(function() {
-    $('a.fancy').each(function() { $(this).fancyZoom({width:500, height:300});});
-    $('#small').fancyZoom({scaleImg: true}); // Scales images inside while zooming
-    $('#medium').fancyZoom({closeOnClick: true}); // Close the zoom by clicking on the contents
+    $('a.fancy').each(function() { $(this).fancyzoom({width:500, height:300});});
+    $('#small').fancyzoom({scaleImg: true}); // Scales images inside while zooming
+    $('#medium').fancyzoom({closeOnClick: true}); // Close the zoom by clicking on the contents
     // width and height are optional. defaults to css specifications of width and height. 
     // if width and height are passed in, they override whatever may be in css.
-    $('#large').fancyZoom({width:600, height:400});
+    $('#large').fancyzoom({width:600, height:400});
   });
 &lt;/script&gt;</code></pre>
 
@@ -124,7 +157,7 @@
 
 <pre><code>&lt;script type="text/javascript"&gt;
   $(document).ready(function() {
-    $('#small').fancyZoom({directory: 'http://foobar.com/images/zoom'}); // no need for trailing slash
+    $('#small').fancyzoom({directory: 'http://foobar.com/images/zoom'}); // no need for trailing slash
   });
 &lt;/script&gt;</code></pre>
 		
