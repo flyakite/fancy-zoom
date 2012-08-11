@@ -12,8 +12,9 @@ $.fn.fancyzoom = function(options){
 
     if ($('#zoom').length == 0) {
         var ext = $.browser.msie ? 'gif' : 'png';
-        var html = '<div id="zoom" style="display:none;"><div id="zoom_content"></div> \
-                    <a href="#" title="Close" id="zoom_close"> \
+        var html = '<div id="zoom" style="display:none;"><div id="zoomcontent"></div> \
+                    <div id="zoomcaption"></div> \
+                    <a href="#" title="Close" id="zoomclose"> \
                     </a></div>';
                     //<img src="' + directory + '/closebox.' + ext + '" alt="Close" style="border:none; margin:0; padding:0;" /> \\
 
@@ -25,11 +26,12 @@ $.fn.fancyzoom = function(options){
                 hide();
         });
 
-        $('#zoom_close').click(hide);
+        $('#zoomclose').click(hide);
     }
 
-    var $zoom_close = $('#zoom_close'),
-        $zoom_content = $('#zoom_content');
+    var $zoom = $('#zoom'),
+        $zoomclose = $('#zoomclose'),
+        $zoomcontent = $('#zoomcontent');
 
     this.each(function(i) {
         $(this).click(show);
@@ -41,12 +43,17 @@ $.fn.fancyzoom = function(options){
         if (zooming){
             return false;
         } 
+        
 		zooming = true;
 		var src;
-	    if( options && options.targetSrc ){
+	    if( e.target.targetSrc ){
 	        src = options.targetSrc
 	    }else{
 		    src = $(this).attr('href');
+	    }
+	    if( e.target.caption && _){
+	        console.log(e.target.caption);
+	        $('#zoomcaption').html(_.escape(e.target.caption));
 	    }
 		var $img = $('<img />').attr('src', src),
 		    $content = $('<div />').addClass('garbage').append($img),
@@ -74,7 +81,7 @@ $.fn.fancyzoom = function(options){
     		var curLeft = e.pageX;
             
             $('.garbage').remove();
-    		$zoom_close
+    		$zoomclose
     	        .attr('curTop', curTop)
     		    .attr('curLeft', curLeft)
     		    .attr('scaleImg', options.scaleImg ? 'true' : 'false')
@@ -94,10 +101,10 @@ $.fn.fancyzoom = function(options){
             }
     
     		if (options.scaleImg) {
-        		$zoom_content.html($content.html());
-        		$('#zoom_content img').css('width', '100%');
+        		$zoomcontent.html($content.html());
+        		$('#zoomcontent img').css('width', '100%');
     		} else {
-    		    $zoom_content.html('');
+    		    $zoomcontent.html('');
     		}
         
             $('#zoom').animate({
@@ -108,9 +115,9 @@ $.fn.fancyzoom = function(options){
                 height    : height
             }, 200, null, function() {
                 if (options.scaleImg != true) {
-            		$zoom_content.html($content.html());
+            		$zoomcontent.html($content.html());
         		}
-    			$zoom_close.show();
+    			$zoomclose.show();
     			zooming = false;
             });
             $loading.remove();
@@ -122,19 +129,19 @@ $.fn.fancyzoom = function(options){
         if (zooming) return false;
 		zooming = true;
 	    $('#zoom').unbind('click');
-		if ($zoom_close.attr('scaleImg') != 'true') {
-    		$zoom_content.html('');
+		if ($zoomclose.attr('scaleImg') != 'true') {
+    		$zoomcontent.html('');
 		}
-		$zoom_close.hide();
+		$zoomclose.hide();
 		$('#zoom').animate({
-            top         : $zoom_close.attr('curTop') + 'px',
-            left        : $zoom_close.attr('curLeft') + 'px',
+            top         : $zoomclose.attr('curTop') + 'px',
+            left        : $zoomclose.attr('curLeft') + 'px',
             opacity : "hide",
             width     : '1px',
             height    : '1px'
         }, 200, null, function() {
-            if ($zoom_close.attr('scaleImg') == 'true') {
-        		$zoom_content.html('');
+            if ($zoomclose.attr('scaleImg') == 'true') {
+        		$zoomcontent.html('');
     		}
 			zooming = false;
         });

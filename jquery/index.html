@@ -5,13 +5,17 @@
 	<title>Fancy Zoom by John Nunemaker</title> 
 	<link rel="stylesheet" href="../css/fancyzoom.css" type="text/css" /> 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+	<script type="text/javascript" src="js/underscore.min.js"></script>
 	<script type="text/javascript" src="js/fancyzoom.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		$(document).ready(function() {
-			$('div.photo a').fancyzoom();
-			$('#medium_box_link').fancyzoom({width:400, height:300});
-			$('#large_box_link').fancyzoom();
-			$('#flash_box_link').fancyzoom();
+			$('div.photo a').fancyzoom().each(function(i){
+			    $(this).find('img')[0].caption = '<Caption> ' + i;
+			    
+			});
+			//$('#medium_box_link').fancyzoom({width:400, height:300});
+			//$('#large_box_link').fancyzoom();
+			//$('#flash_box_link').fancyzoom();
 		});
 	</script>
 	
@@ -79,17 +83,17 @@
 			<h3>Images</h3>
 			<div class="photo">
 				<a href="http://farm4.static.flickr.com/3250/2765022017_356efe6a25.jpg">
-					<img src="http://farm4.static.flickr.com/3250/2765022017_356efe6a25_s.jpg" alt="Github helmet" />
+					<img src="http://farm4.static.flickr.com/3250/2765022017_356efe6a25_s.jpg" alt="" />
 				</a>
 			</div>
 			<div class="photo">
 				<a href="http://farm4.static.flickr.com/3150/2726282580_05ed83e3c0.jpg">
-					<img src="http://farm4.static.flickr.com/3150/2726282580_05ed83e3c0_s.jpg" alt="Github helmet" />
+					<img src="http://farm4.static.flickr.com/3150/2726282580_05ed83e3c0_s.jpg" alt="" />
 				</a>
 			</div>
 			<div class="photo">
 				<a href="http://farm4.static.flickr.com/3088/2709825025_fb6d71b455.jpg">
-					<img src="http://farm4.static.flickr.com/3088/2709825025_fb6d71b455_s.jpg" alt="Github helmet" />
+					<img src="http://farm4.static.flickr.com/3088/2709825025_fb6d71b455_s.jpg" alt="" />
 				</a>
 			</div>
 			
